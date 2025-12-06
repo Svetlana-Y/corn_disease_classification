@@ -1,0 +1,8 @@
+---
+stages:
+  download:
+    cmd:
+      python -c "from corn_classifier.data.download import dvc_pull_or_download;
+      dvc_pull_or_download()"
+    deps: []
+    outs: []

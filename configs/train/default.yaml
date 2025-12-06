@@ -1,0 +1,18 @@
+---
+seed: 42
+dataset:
+  img_size: 224
+  batch_size: 16
+  num_workers: 2
+  data_root: data/raw
+train:
+  max_epochs: 1
+  lr: 1e-3
+model:
+  backbone: resnet18
+  num_classes: 3
+logging:
+  mlflow_uri: http://127.0.0.1:8080
+  experiment_name: corn_classifier_experiment
+output:
+  ckpt_dir: artifacts/checkpoints
