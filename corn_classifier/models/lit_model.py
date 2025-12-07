@@ -13,8 +13,8 @@ class CornLitModel(pl.LightningModule):
         self.cfg = cfg
         self.model = get_backbone(cfg.model.backbone, pretrained=False, num_classes=cfg.model.num_classes)
         self.lr = cfg.train.lr
-        self.train_acc = Accuracy()
-        self.val_acc = Accuracy()
+        self.train_acc = Accuracy(task="multiclass", num_classes=cfg.model.num_classes)
+        self.val_acc = Accuracy(task="multiclass", num_classes=cfg.model.num_classes)
 
     def forward(self, x):
         return self.model(x)

@@ -11,6 +11,8 @@ artifacts/
 *.onnx
 *.trt
 plots/
+mlruns/
+mlartifacts/
 
 
 .dvc/

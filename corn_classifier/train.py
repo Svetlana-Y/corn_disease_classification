@@ -1,10 +1,11 @@
-# corn_classifier/train.py
 import subprocess
 from pathlib import Path
 
 import mlflow
 import pytorch_lightning as pl
 import torch
+# import logging
+# logging.getLogger("pytorch_lightning").setLevel(logging.DEBUG)
 
 # hydra imports for programmatic compose
 from hydra import compose, initialize_config_dir
@@ -99,7 +100,6 @@ def main():
         shuffle=True,
     )
     val_loader = DataLoader(val_ds, batch_size=cfg.dataset.batch_size, num_workers=cfg.dataset.num_workers)
-
     # Model
     model = CornLitModel(cfg)
 
@@ -113,14 +113,20 @@ def main():
         default_root_dir=str(ckpt_dir),
         devices=1 if torch.cuda.is_available() else None,
         accelerator="gpu" if torch.cuda.is_available() else "cpu",
+        enable_progress_bar=True,  
     )
 
     trainer.fit(model, train_loader, val_loader)
-
     last = ckpt_dir / "last.ckpt"
     trainer.save_checkpoint(str(last))
 
-    mlflow.log_param("git_commit", get_git_commit())
+    with mlflow.start_run():
+        mlflow.log_param("git_commit", get_git_commit())
+        mlflow.log_artifact(str(last))
+        mlflow.log_metrics({                                        
+            "final_val_acc": float(trainer.callback_metrics.get("val_acc", 0)),
+            "final_val_loss": float(trainer.callback_metrics.get("val_loss", 0)),
+        })
     print("Train finished. checkpoint:", last)
 
 

@@ -9,7 +9,7 @@
 - `dvc` проинициализирован, но удалённое хранилище не настроено — используется `download_data()` из Kaggle.
 - `plots/` — папка для графиков (в `.gitignore` — но примеры графиков сохраняются локально в процессе работы).
 
-## Быстрая пошаговая инструкция (если вы "тупые" — делайте строго по шагам)
+## Setup
 
 1. Клонирование репозитория:
 ```bash
@@ -19,7 +19,7 @@ cd corn-classifier
 
 2. Создать виртуальное окружение и активировать его:
 ```bash
-python3.12 -m venv .venv
+uv sync
 source .venv/bin/activate
 ```
 
@@ -44,17 +44,28 @@ pre-commit run -a
 python -c "from corn_classifier.data.download import download_data; download_data()"
 ```
 
-6. Запустить тренировку (пример, быстро, 1 эпоха):
+## mlflow
+
+Запуск MLflow-сервера (в отдельном терминале)
+
 ```bash
-python -m corn_classifier.train
+mlflow server --backend-store-uri file:./mlruns --default-artifact-root file:./mlartifacts --host 127.0.0.1 --port 8080
 ```
 
-7. Экспортировать модель в ONNX:
+## Train
+
+Запуск обучения (пример, быстро, 1 эпоха):
+
+```bash
+train
+```
+
+Экспорт модели в ONNX:
 ```bash
 python -m corn_classifier.export
 ```
 
-8. Запустить инференс на картинке:
+Запуск инференса на картинке:
 ```bash
 python -m corn_classifier.infer infer.input=path/to/image.jpg
 ```
