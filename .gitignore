@@ -6,6 +6,8 @@ __pycache__/
 
 
 #data/
+node_modules/
+outputs/
 artifacts/
 *.pth
 *.onnx

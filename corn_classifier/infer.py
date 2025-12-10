@@ -7,21 +7,22 @@ from omegaconf import DictConfig
 from PIL import Image
 
 
-@hydra.main(config_path="../configs", config_name="infer/default.yaml")
+@hydra.main(config_path="../configs/infer", config_name="default.yaml")
 def main(cfg: DictConfig):
     onnx_path = Path(cfg.infer.onnx_path)
     if not onnx_path.exists():
         print("ONNX модель не найдена:", onnx_path)
         return
 
-    input_path = cfg.infer.input
+    input_path = Path(cfg.infer.input)
+    print(input_path)
+    print(input_path.exists())
     if not input_path:
         print("Укажите файл через infer.input=path/to/img.jpg")
         return
 
     img = Image.open(input_path).convert("RGB").resize((cfg.dataset.img_size, cfg.dataset.img_size))
     arr = np.array(img).astype(np.float32) / 255.0
-    # HWC -> CHW
     arr = arr.transpose(2, 0, 1)
     arr = np.expand_dims(arr, 0)
 
