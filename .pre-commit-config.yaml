@@ -1,4 +1,15 @@
 ---
+exclude: |
+  ^node_modules/
+  ^\.dvc/cache/
+  ^\.dvc/tmp/
+  ^outputs/
+  ^artifacts/
+  ^mlruns/
+  ^mlartifacts/
+  ^plots/
+  ^\.venv/
+  ^__pycache__/
 default_install_hook_types: [commit-msg, pre-commit, pre-push]
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
@@ -53,7 +64,7 @@ repos:
           - parsable
           - --strict
           - -d
-          - "{extends: relaxed, rules: {line-length: {max: 120}}}"
+          - '{extends: relaxed, rules: {line-length: {max: 120}}}'
   - repo: https://github.com/lyz-code/yamlfix
     rev: 1.19.0
     hooks:
@@ -85,5 +96,5 @@ repos:
     hooks:
       - id: prettier
         name: prettier (format non-Python files)
-        files: \.(js|jsx|ts|tsx|json|md|yaml|yml|css|scss|html|graphql|mdx)$
+        files: \.(js|jsx|ts|tsx|json|md|css|scss|html|graphql|mdx)$
         args: [--write]

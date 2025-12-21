@@ -4,7 +4,7 @@ version = "0.1.0"
 description = "Corn desease classification"
 readme = "README.md"
 requires-python = ">=3.10,<3.11"
-packages = ["corn_classifier"]
+
 dependencies = [
     "kaggle>=1.7.4.5",
     "mlflow>=3.7.0",
@@ -33,3 +33,6 @@ dev = [
     "pre-commit>=4.5.0",
     "ruff>=0.14.8",
 ]
+
+[tool.setuptools]
+packages = ["corn_classifier"]

@@ -16,12 +16,12 @@ def download_data():
 
 def dvc_pull_or_download():
     """Попытка dvc pull; если не удаётся — вызываем download_data"""
-    try:
-        subprocess.check_call(["dvc", "pull"])  # если нет remote — приведёт к ошибке
-        print("dvc pull выполнен")
-    except Exception:
-        print("dvc pull не сработал — пробуем скачать напрямую через Kaggle")
-        download_data()
+    # try:
+    #     subprocess.check_call(["dvc", "pull"])  # если нет remote — приведёт к ошибке
+    #     print("dvc pull выполнен")
+    # except Exception:
+    print("dvc pull не сработал — пробуем скачать напрямую через Kaggle")
+    download_data()
 
 
 if __name__ == "__main__":

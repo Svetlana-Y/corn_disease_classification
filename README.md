@@ -33,7 +33,7 @@ pip install uv
 uv install
 ```
 
-> Если `uv install` упадёт — можно использовать `pip install -e .[dev]`.
+> Если `uv install` упадёт — можно использовать `uv pip install -e .`.
 
 4. Установить pre-commit хуки и проверить их:
 

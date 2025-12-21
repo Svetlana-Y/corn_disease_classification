@@ -15,10 +15,7 @@ artifacts/
 plots/
 mlruns/
 mlartifacts/
-
-
-.dvc/
-
+.dvc/cache/
 
 .vscode/
 .idea/
