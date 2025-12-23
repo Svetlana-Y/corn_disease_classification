@@ -51,8 +51,14 @@ pre-commit run -a
 
 6. Получить данные (либо автоматически скачивается при запуске train):
    - Настройте dvc credentials: положите `dvc_credentials.json` (JSON с приватным ключом Service Account) в корень проекта.
-   - Настройте Kaggle credentials: положите `kaggle.json` в `~/.kaggle/kaggle.json` (инструкция на kaggle.com).
    - Запустите:
+
+```bash
+dvc pull
+```
+
+- Настройте Kaggle credentials: положите `kaggle.json` в `~/.kaggle/kaggle.json` (инструкция на kaggle.com).
+- Запустите:
 
 ```bash
 python -c "from corn_classifier.data.download import download_data; download_data()"
