@@ -12,7 +12,7 @@ model:
   backbone: resnet18
   num_classes: 3
 logging:
-  mlflow_uri: http://127.0.0.1:8080
+  mlflow_uri: http://127.0.0.1:5000
   experiment_name: corn_classifier_experiment
 output:
   ckpt_dir: artifacts/checkpoints
