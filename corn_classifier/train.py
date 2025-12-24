@@ -90,12 +90,19 @@ def main():
     ckpt_dir = Path(cfg.output.ckpt_dir)
     ckpt_dir.mkdir(parents=True, exist_ok=True)
 
+    if torch.cuda.is_available():
+        accelerator = "gpu"
+        devices = torch.cuda.device_count()
+    else:
+        accelerator = "cpu"
+        devices = 1
+
     trainer = pl.Trainer(
         max_epochs=cfg.train.max_epochs,
         logger=mlogger,
         default_root_dir=str(ckpt_dir),
-        accelerator="gpu" if torch.cuda.is_available() else "cpu",
-        devices=1 if torch.cuda.is_available() else None,
+        accelerator=accelerator,
+        devices=devices,
     )
 
     trainer.fit(model, train_loader, val_loader)

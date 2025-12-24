@@ -20,6 +20,8 @@ plots/
 mlruns/
 mlartifacts/
 .dvc/cache/
+.dvc/tmp/
+
 
 .vscode/
 .idea/
