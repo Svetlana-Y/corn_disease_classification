@@ -167,8 +167,8 @@ pre-commit run -a
 dvc pull
 ```
 
-- Настройте Kaggle credentials: положите `kaggle.json` в `~/.kaggle/kaggle.json` (инструкция на kaggle.com).
-- Запустите:
+  - Настройте Kaggle credentials: положите `kaggle.json` в `~/.kaggle/kaggle.json` (инструкция на kaggle.com).
+  - Запустите:
 
 ```bash
 python -c "from corn_classifier.data.download import download_data; download_data()"
