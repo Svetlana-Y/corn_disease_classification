@@ -4,6 +4,10 @@ __pycache__/
 .venv/
 .env
 
+dvc_credentials.json
+mlflow.db
+build
+
 
 #data/
 node_modules/

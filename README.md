@@ -159,6 +159,11 @@ pip install uv
 uv pip install -e .
 ```
 
+Если хотите запустить обучение
+```
+uv pip install ".[dev]"
+```
+
 5. Установить pre-commit хуки и проверить их:
 
 ```bash
