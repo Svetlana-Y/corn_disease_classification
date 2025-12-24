@@ -2,5 +2,5 @@
 dataset:
   img_size: 224
 infer:
-  onnx_path: ${hydra:runtime.cwd}/artifacts/model.onnx
+  onnx_path: ${hydra:runtime.cwd}/artifacts/vit.onnx
   input:

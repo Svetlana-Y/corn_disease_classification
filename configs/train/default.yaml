@@ -6,11 +6,11 @@ dataset:
   num_workers: 2
   data_root: data/raw
 train:
-  max_epochs: 1
+  max_epochs: 10
   lr: 1e-3
 model:
-  backbone: resnet18
-  num_classes: 3
+  backbone: vit
+  num_classes: 4
 logging:
   mlflow_uri: http://127.0.0.1:5000
   experiment_name: corn_classifier_experiment

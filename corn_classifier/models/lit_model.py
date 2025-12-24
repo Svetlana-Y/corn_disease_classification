@@ -1,7 +1,7 @@
 import pytorch_lightning as pl
+import timm
 import torch
 import torch.nn.functional as F
-import torchvision.models as models
 from torchmetrics.classification import (
     MulticlassAccuracy,
     MulticlassF1Score,
@@ -14,19 +14,31 @@ class CornLitModel(pl.LightningModule):
     def __init__(self, cfg):
         super().__init__()
         self.cfg = cfg
+        self.save_hyperparameters()
 
         self.num_classes = cfg.model.num_classes
         self.lr = cfg.train.lr
+        backbone = cfg.model.backbone.lower()
 
-        # ===== BACKBONE =====
-        if cfg.model.backbone == "resnet18":
-            self.model = models.resnet18(weights="IMAGENET1K_V1")
-            in_features = self.model.fc.in_features
-            self.model.fc = torch.nn.Linear(in_features, self.num_classes)
+        # ================= BACKBONE =================
+        if backbone == "rexnet":
+            self.model = timm.create_model(
+                "rexnet_200",
+                pretrained=True,
+                num_classes=self.num_classes,
+            )
+
+        elif backbone == "vit":
+            self.model = timm.create_model(
+                "vit_base_patch16_224",
+                pretrained=True,
+                num_classes=self.num_classes,
+            )
+
         else:
-            raise ValueError(f"Unsupported backbone: {cfg.model.backbone}")
+            raise ValueError(f"Unsupported backbone '{cfg.model.backbone}'. " "Use: rexnet | vit")
 
-        # ===== METRICS =====
+        # ================= METRICS =================
         self.train_acc = MulticlassAccuracy(num_classes=self.num_classes)
 
         self.val_acc = MulticlassAccuracy(num_classes=self.num_classes)
@@ -34,6 +46,7 @@ class CornLitModel(pl.LightningModule):
         self.val_recall = MulticlassRecall(num_classes=self.num_classes, average="macro")
         self.val_f1 = MulticlassF1Score(num_classes=self.num_classes, average="macro")
 
+    # ================= FORWARD =================
     def forward(self, x):
         return self.model(x)
 
