@@ -1,0 +1,6 @@
+---
+dataset:
+  img_size: 224
+export:
+  ckpt_path: artifacts/checkpoints/last.ckpt
+  onnx_path: artifacts/model.onnx
